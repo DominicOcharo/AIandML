@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPE Detection Camera Feed</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        img {
+            border: 5px solid #000;
+            width: 80%;
+            max-width: 720px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PPE Detection Camera Feed</h1>
+    <img id="videoStream" alt="Live camera feed not available">
+
+    <script>
+        const videoElement = document.getElementById('videoStream');
+        
+        // Use your video feed URL
+        const streamUrl = 'https://zebra-advanced-manually.ngrok-free.app/video_feed';
+        
+        // Function to handle the MJPEG stream and display it in the img element
+        function updateStream() {
+            videoElement.src = streamUrl + '?' + new Date().getTime(); // Prevent caching by appending timestamp
+        }
+
+        // Initialize stream
+        updateStream();
+
+        // Refresh stream every 5 seconds to keep it live
+        setInterval(updateStream, 5000);
+    </script>
+
+</body>
+</html>
