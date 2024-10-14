@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Image Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.7.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body {
+            background-image: linear-gradient(to bottom right, #1a202c, #2d3748);
+        }
+        .logo {
+            font-size: 3rem;
+            color: #a0aec0;
+        }
+        .header-text {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #bb86fc;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .response-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #03dac6;
+        }
+        .markdown-content {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+            color: #bb86fc;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+        .markdown-content p {
+            margin-bottom: 1em;
+        }
+        .markdown-content ul, .markdown-content ol {
+            margin-left: 1.5em;
+            margin-bottom: 1em;
+        }
+        .markdown-content code {
+            background-color: #2d3748;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto p-4">
+        <div class="flex items-center justify-center mb-12">
+            <i class="fas fa-camera logo mr-6"></i>
+            <h1 class="header-text text-center">ANALYZE IMAGE APPLICATION</h1>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-secondary">Upload Image</h2>
+                    <input type="file" id="image-upload" accept="image/*" class="file-input file-input-bordered file-input-primary w-full" />
+                    <div id="image-container" class="hidden mt-4">
+                        <img id="display-image" src="" alt="Uploaded image" class="w-full rounded-lg shadow-lg" />
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-secondary">Ask Question</h2>
+                    <textarea id="query-input" rows="4" placeholder="Enter your question about the image" class="textarea textarea-bordered textarea-primary w-full mb-4"></textarea>
+                    <button id="submit-query" class="btn btn-primary mb-4">Submit Query</button>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-secondary response-header">llama-3.2-11b-vision-preview Response</h2>
+                    <div id="response-container-llama" class="hidden">
+                        <div id="response-text-llama" class="text-base-content bg-base-300 p-4 rounded-lg markdown-content"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-base-200 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title text-secondary response-header">llava-v1.5-7b-4096-preview Response</h2>
+                    <div id="response-container-llava" class="hidden">
+                        <div id="response-text-llava" class="text-base-content bg-base-300 p-4 rounded-lg markdown-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="error-container" class="mt-8 hidden">
+            <div class="alert alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span id="error-text"></span>
+            </div>
+        </div>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
